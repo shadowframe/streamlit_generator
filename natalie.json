@@ -1,0 +1,186 @@
+{
+    "input": {
+        "workflow": {
+            "4": {
+                "inputs": {
+                    "width": 832,
+                    "height": 1216,
+                    "batch_size": 1
+                },
+                "class_type": "EmptyLatentImage",
+                "_meta": {
+                    "title": "Empty Latent Image"
+                }
+            },
+            "5": {
+                "inputs": {
+                    "text": "YOUR_PROMPT",
+                    "clip": [
+                        "17",
+                        1
+                    ]
+                },
+                "class_type": "CLIPTextEncode",
+                "_meta": {
+                    "title": "CLIP Text Encode (Prompt)"
+                }
+            },
+            "6": {
+                "inputs": {
+                    "samples": [
+                        "11",
+                        0
+                    ],
+                    "vae": [
+                        "8",
+                        0
+                    ]
+                },
+                "class_type": "VAEDecode",
+                "_meta": {
+                    "title": "VAE Decode"
+                }
+            },
+            "7": {
+                "inputs": {
+                    "filename_prefix": "ComfyUI",
+                    "images": [
+                        "6",
+                        0
+                    ]
+                },
+                "class_type": "SaveImage",
+                "_meta": {
+                    "title": "Save Image"
+                }
+            },
+            "8": {
+                "inputs": {
+                    "vae_name": "ae.safetensors"
+                },
+                "class_type": "VAELoader",
+                "_meta": {
+                    "title": "Load VAE"
+                }
+            },
+            "9": {
+                "inputs": {
+                    "clip_name1": "t5xxl_fp8_e4m3fn.safetensors",
+                    "clip_name2": "clip_l.safetensors",
+                    "type": "flux",
+                    "device": "default"
+                },
+                "class_type": "DualCLIPLoader",
+                "_meta": {
+                    "title": "DualCLIPLoader"
+                }
+            },
+            "10": {
+                "inputs": {
+                    "unet_name": "flux1-dev.safetensors",
+                    "weight_dtype": "fp8_e4m3fn"
+                },
+                "class_type": "UNETLoader",
+                "_meta": {
+                    "title": "Load Diffusion Model"
+                }
+            },
+            "11": {
+                "inputs": {
+                    "noise": [
+                        "16",
+                        0
+                    ],
+                    "guider": [
+                        "15",
+                        0
+                    ],
+                    "sampler": [
+                        "13",
+                        0
+                    ],
+                    "sigmas": [
+                        "14",
+                        0
+                    ],
+                    "latent_image": [
+                        "4",
+                        0
+                    ]
+                },
+                "class_type": "SamplerCustomAdvanced",
+                "_meta": {
+                    "title": "SamplerCustomAdvanced"
+                }
+            },
+            "13": {
+                "inputs": {
+                    "sampler_name": "euler"
+                },
+                "class_type": "KSamplerSelect",
+                "_meta": {
+                    "title": "KSamplerSelect"
+                }
+            },
+            "14": {
+                "inputs": {
+                    "scheduler": "sgm_uniform",
+                    "steps": 30,
+                    "denoise": 1,
+                    "model": [
+                        "17",
+                        0
+                    ]
+                },
+                "class_type": "BasicScheduler",
+                "_meta": {
+                    "title": "BasicScheduler"
+                }
+            },
+            "15": {
+                "inputs": {
+                    "model": [
+                        "17",
+                        0
+                    ],
+                    "conditioning": [
+                        "5",
+                        0
+                    ]
+                },
+                "class_type": "BasicGuider",
+                "_meta": {
+                    "title": "BasicGuider"
+                }
+            },
+            "16": {
+                "inputs": {
+                    "noise_seed": 600815990196991
+                },
+                "class_type": "RandomNoise",
+                "_meta": {
+                    "title": "RandomNoise"
+                }
+            },
+            "17": {
+                "inputs": {
+                    "lora_name": "natalie_flux_longttraining.safetensors",
+                    "strength_model": 1,
+                    "strength_clip": 1,
+                    "model": [
+                        "10",
+                        0
+                    ],
+                    "clip": [
+                        "9",
+                        0
+                    ]
+                },
+                "class_type": "LoraLoader",
+                "_meta": {
+                    "title": "Load LoRA"
+                }
+            }
+        }
+    }
+}
